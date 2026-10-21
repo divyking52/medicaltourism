@@ -35,6 +35,22 @@
   const registerTriggers = [...document.querySelectorAll('.btn-register-trigger')];
   const sponsorTriggers = [...document.querySelectorAll('.btn-sponsor-trigger')];
 
+  // Speaker Profile Pop-Out Elements
+  const speakerPopout = document.getElementById('speakerPopout');
+  const speakerPopoutBody = document.getElementById('speakerPopoutBody');
+  const speakerPopoutClose = document.getElementById('speakerPopoutClose');
+  const speakerPopoutBackdrop = document.getElementById('speakerPopoutBackdrop');
+  const speakerMiniPhotos = [...document.querySelectorAll('.speaker-mini-photo')];
+  const speakerPopoutCards = [...document.querySelectorAll('.speaker-popout-card')];
+
+  // Congress Delegate & Visitor Registration Modal Elements
+  const delegateModal = document.getElementById('delegateModal');
+  const delegateModalClose = document.getElementById('delegateModalClose');
+  const delegateForm = document.getElementById('delegateRegistrationForm');
+  const delegateSuccessState = document.getElementById('delegateSuccessState');
+  const delegateSuccessCloseBtn = document.getElementById('delegateSuccessCloseBtn');
+  const delegateTriggers = [...document.querySelectorAll('.delegate-register-trigger')];
+
   // Interactive Agenda Elements
   const dayTabs = [...document.querySelectorAll('.day-tab')];
   const agendaRows = [...document.querySelectorAll('.agenda-row')];
@@ -77,6 +93,12 @@
   // --- Lenis Smooth Scroll Engine Initialization (Desktop Only) ---
   // On mobile touchscreens, native 120Hz/60Hz OS momentum scrolling is kept 100% untouched for zero lag!
   let lenis = null;
+
+  // Nested scrollable containers (modals, pop-out cards). Lenis' virtual scroll
+  // intercepts the wheel event and calls preventDefault(), which blocks native
+  // scrolling inside them. Opting these containers out restores wheel scrolling.
+  const NESTED_SCROLL_SELECTOR = '.modal-dialog, .speaker-popout-container, [data-lenis-prevent]';
+
   if (!isTouchDevice && typeof window.Lenis !== 'undefined' && !prefersReducedMotion) {
     try {
       lenis = new window.Lenis({
@@ -87,6 +109,10 @@
         smoothWheel: true,
         wheelMultiplier: 0.85,
         infinite: false,
+        prevent: (node) => {
+          if (!node || !(node instanceof HTMLElement)) return false;
+          return !!node.closest(NESTED_SCROLL_SELECTOR);
+        },
       });
 
       window.lenis = lenis;
@@ -847,6 +873,10 @@
     if (e.key === 'Escape') {
       if (floorplanLightbox && floorplanLightbox.classList.contains('open')) {
         closeFloorplanLightbox();
+      } else if (speakerPopout && speakerPopout.classList.contains('open')) {
+        closeSpeakerPopout();
+      } else if (delegateModal && delegateModal.classList.contains('open')) {
+        closeDelegateModal();
       } else if (registerModal && registerModal.classList.contains('open')) {
         closeRegisterModal();
       } else if (mobileDrawer && mobileDrawer.classList.contains('open')) {
@@ -854,6 +884,141 @@
       }
     }
   });
+
+  // --- Congress Delegate & Visitor Registration Modal ---
+  function openDelegateModal() {
+    if (!delegateModal) return;
+    delegateModal.classList.add('open');
+    delegateModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
+
+    const firstInput = delegateModal.querySelector('input');
+    if (firstInput) {
+      setTimeout(() => firstInput.focus(), 100);
+    }
+  }
+
+  function closeDelegateModal() {
+    if (!delegateModal) return;
+    delegateModal.classList.remove('open');
+    delegateModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lenis) lenis.start();
+
+    // Reset success state after closing
+    setTimeout(() => {
+      if (delegateSuccessState && delegateForm) {
+        delegateSuccessState.style.display = 'none';
+        delegateForm.style.display = 'flex';
+        delegateForm.reset();
+      }
+    }, 400);
+  }
+
+  delegateTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeMobileMenu();
+      openDelegateModal();
+    });
+  });
+
+  if (delegateModalClose) {
+    delegateModalClose.addEventListener('click', closeDelegateModal);
+  }
+
+  if (delegateSuccessCloseBtn) {
+    delegateSuccessCloseBtn.addEventListener('click', closeDelegateModal);
+  }
+
+  if (delegateModal) {
+    delegateModal.addEventListener('click', (e) => {
+      if (e.target === delegateModal) {
+        closeDelegateModal();
+      }
+    });
+  }
+
+  if (delegateForm) {
+    delegateForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const submitBtn = delegateForm.querySelector('.modal-submit-btn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>PROCESANDO REGISTRO...</span>';
+      }
+
+      // Simulate quick secure API dispatch
+      setTimeout(() => {
+        if (delegateForm && delegateSuccessState) {
+          delegateForm.style.display = 'none';
+          delegateSuccessState.style.display = 'block';
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>ENVIAR REGISTRO</span><span class="btn-arrow">→</span>';
+          }
+        }
+      }, 700);
+    });
+  }
+
+  // --- Speaker Profile Pop-Out Card ---
+  let speakerPopoutTrigger = null;
+
+  function openSpeakerPopout(slug) {
+    if (!speakerPopout || !speakerPopoutBody) return;
+
+    const card = speakerPopoutCards.find(c => c.getAttribute('data-popout-slug') === slug);
+    if (!card) return;
+
+    speakerPopoutCards.forEach(c => c.classList.toggle('is-active', c === card));
+    speakerPopout.classList.add('open');
+    speakerPopout.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
+
+    // Reset scroll position so the profile always opens from the top
+    speakerPopoutContainerScrollTop();
+
+    if (speakerPopoutClose) {
+      setTimeout(() => speakerPopoutClose.focus(), 60);
+    }
+  }
+
+  function speakerPopoutContainerScrollTop() {
+    const container = speakerPopout && speakerPopout.querySelector('.speaker-popout-container');
+    if (container) container.scrollTop = 0;
+  }
+
+  function closeSpeakerPopout() {
+    if (!speakerPopout) return;
+    speakerPopout.classList.remove('open');
+    speakerPopout.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lenis) lenis.start();
+
+    // Return focus to the photo that opened the pop-out
+    if (speakerPopoutTrigger) {
+      speakerPopoutTrigger.focus();
+      speakerPopoutTrigger = null;
+    }
+  }
+
+  speakerMiniPhotos.forEach(btn => {
+    btn.addEventListener('click', () => {
+      speakerPopoutTrigger = btn;
+      openSpeakerPopout(btn.getAttribute('data-speaker-popout'));
+    });
+  });
+
+  if (speakerPopoutClose) {
+    speakerPopoutClose.addEventListener('click', closeSpeakerPopout);
+  }
+
+  if (speakerPopoutBackdrop) {
+    speakerPopoutBackdrop.addEventListener('click', closeSpeakerPopout);
+  }
 
   // --- Interactive 4-Step Matchmaking Cards ---
   processCards.forEach(card => {

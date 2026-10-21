@@ -16,11 +16,28 @@ const outputFilePath = path.join(rootDir, 'congreso_turismo_medico_completo.html
 const outputStandlonePath = path.join(rootDir, 'website_standalone.html');
 
 // Read source files
-const indexTemplate = fs.readFileSync(indexTemplatePath, 'utf8');
+let indexTemplate = fs.readFileSync(indexTemplatePath, 'utf8');
 const agendaTemplate = fs.readFileSync(agendaTemplatePath, 'utf8');
 const expoTemplate = fs.readFileSync(expoTemplatePath, 'utf8');
 const sedeTemplate = fs.readFileSync(sedeTemplatePath, 'utf8');
 const galeriaTemplate = fs.readFileSync(galeriaTemplatePath, 'utf8');
+
+// Facilitadores page (optional — skipped silently when absent)
+const facilitadoresTemplatePath = path.join(rootDir, 'facilitadores.template.html');
+const hasFacilitadores = fs.existsSync(facilitadoresTemplatePath);
+let facilitadoresTemplate = hasFacilitadores
+  ? fs.readFileSync(facilitadoresTemplatePath, 'utf8')
+  : '';
+
+// Inject full speaker profiles (from agenda.template.html) into the home page
+// so the mini speaker grid can open a full-profile pop-out card.
+const { injectSpeakerPopouts, injectSpeakerArticles } = require('./speaker_profiles.js');
+indexTemplate = injectSpeakerPopouts(indexTemplate, agendaTemplate);
+
+// Inject the confirmed facilitator profiles into the Facilitadores page
+if (hasFacilitadores) {
+  facilitadoresTemplate = injectSpeakerArticles(facilitadoresTemplate, agendaTemplate, 'facilitator-');
+}
 
 const css = fs.readFileSync(cssPath, 'utf8');
 const lenis = fs.readFileSync(lenisPath, 'utf8');
@@ -76,6 +93,7 @@ const agendaMain = extractMain(agendaTemplate);
 const expoMain = extractMain(expoTemplate);
 const sedeMain = extractMain(sedeTemplate);
 const galeriaMain = extractMain(galeriaTemplate);
+const facilitadoresMain = hasFacilitadores ? extractMain(facilitadoresTemplate) : '';
 
 // Helper to extract image lightbox modal from galeria template if present
 let imageLightboxHtml = '';
@@ -83,6 +101,34 @@ const lightboxMatch = galeriaTemplate.match(/<!-- Image Lightbox Modal -->[\s\S]
 if (lightboxMatch) {
   imageLightboxHtml = lightboxMatch[0];
 }
+
+// Helper to extract a balanced <div> block (handles nested divs) starting at a marker
+function extractBalancedDivBlock(html, startMarker) {
+  const start = html.indexOf(startMarker);
+  if (start === -1) return '';
+  const openTagEnd = html.indexOf('>', start);
+  if (openTagEnd === -1) return '';
+  let depth = 1;
+  const divRegex = /<div\b|<\/div>/gi;
+  divRegex.lastIndex = openTagEnd + 1;
+  let m;
+  while ((m = divRegex.exec(html)) !== null) {
+    if (m[0] === '</div>') {
+      depth--;
+      if (depth === 0) return html.slice(start, m.index + m[0].length);
+    } else {
+      depth++;
+    }
+  }
+  return '';
+}
+
+// The agenda page's modals live OUTSIDE its <main>, so they are not carried
+// over by the SPA extraction above. Pull the delegate registration modal in.
+const delegateModalHtml = extractBalancedDivBlock(
+  agendaTemplate,
+  '<div class="modal-backdrop" id="delegateModal"'
+);
 
 // Build Unified SPA Body
 // In indexTemplate, replace <main>...</main> with SPA views
@@ -116,7 +162,12 @@ const spaViewsHtml = `
       <div class="spa-view" id="view-galeria" data-view="galeria">
         ${galeriaMain}
       </div>
-    </main>
+${hasFacilitadores ? `
+      <!-- VIEW 6: FACILITADORES (International B2B Buyers & Matchmakers) -->
+      <div class="spa-view" id="view-facilitadores" data-view="facilitadores">
+        ${facilitadoresMain}
+      </div>
+` : ''}    </main>
 `;
 
 let unifiedHtml = indexTemplate.replace(/<main[^>]*>[\s\S]*?<\/main>/i, () => spaViewsHtml);
@@ -124,6 +175,12 @@ let unifiedHtml = indexTemplate.replace(/<main[^>]*>[\s\S]*?<\/main>/i, () => sp
 // Insert image lightbox modal before closing #top if not present
 if (imageLightboxHtml && !unifiedHtml.includes('id="imageLightbox"')) {
   unifiedHtml = unifiedHtml.replace('<!-- Floating Mobile Back To Top Button -->', () => `${imageLightboxHtml}\n\n    <!-- Floating Mobile Back To Top Button -->`);
+}
+
+// Insert the agenda's delegate registration modal (unique IDs, no collisions)
+if (delegateModalHtml && !unifiedHtml.includes('id="delegateModal"')) {
+  unifiedHtml = unifiedHtml.replace('<!-- Floating Mobile Back To Top Button -->', () => `${delegateModalHtml}\n\n    <!-- Floating Mobile Back To Top Button -->`);
+  console.log('✓ Agenda delegate registration modal injected into unified build');
 }
 
 // Add SPA Styles to inlined CSS
@@ -194,7 +251,8 @@ const spaRouterScript = `
       'agenda': document.getElementById('view-agenda'),
       'expo': document.getElementById('view-expo'),
       'sede': document.getElementById('view-sede'),
-      'galeria': document.getElementById('view-galeria')
+      'galeria': document.getElementById('view-galeria'),
+      'facilitadores': document.getElementById('view-facilitadores')
     };
 
     const navLinks = document.querySelectorAll('.nav-links .nav-link, .drawer-nav .drawer-link');
@@ -304,6 +362,10 @@ const spaRouterScript = `
         const anchor = rawHref.includes('#') ? rawHref.split('#')[1] : '';
         history.pushState(null, '', '#galeria' + (anchor ? '#' + anchor : ''));
         switchView('galeria', anchor);
+      } else if (href.includes('facilitadores.html') || href === '#facilitadores') {
+        e.preventDefault();
+        history.pushState(null, '', '#facilitadores');
+        switchView('facilitadores');
       } else if (href === 'index.html#top' || href === '#top' || href === 'index.html' || href === '#') {
         e.preventDefault();
         history.pushState(null, '', '#inicio');
@@ -341,6 +403,8 @@ const spaRouterScript = `
       } else if (fullHash.includes('galeria')) {
         const parts = fullHash.split('#').filter(Boolean);
         switchView('galeria', parts[1] || '');
+      } else if (fullHash.includes('facilitadores')) {
+        switchView('facilitadores');
       } else if (fullHash.includes('business')) {
         switchView('inicio', 'business');
       } else if (fullHash.includes('contacto')) {

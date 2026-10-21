@@ -20,6 +20,14 @@ const videoPath = path.join(rootDir, 'gemini_generated_video_d04425a4.mp4');
 const sourceHtml = fs.existsSync(templatePath) 
   ? fs.readFileSync(templatePath, 'utf8') 
   : fs.readFileSync(htmlPath, 'utf8');
+
+// Inject full speaker profiles (from agenda.template.html) into the home page
+// so the mini speaker grid can open a full-profile pop-out card.
+const { injectSpeakerPopoutsFromDisk } = require('./speaker_profiles.js');
+const sourceHtmlWithPopouts = injectSpeakerPopoutsFromDisk(sourceHtml);
+if (sourceHtmlWithPopouts !== sourceHtml) {
+  console.log('✓ Speaker profile pop-outs injected into index template');
+}
 const css = fs.readFileSync(cssPath, 'utf8');
 const lenis = fs.readFileSync(lenisPath, 'utf8');
 const gsap = fs.existsSync(gsapPath) ? fs.readFileSync(gsapPath, 'utf8') : '';
@@ -107,7 +115,7 @@ function compileHtml(templateString, includeVideo = false) {
 }
 
 // 1. Compile index.html (Master standalone single-page website)
-const bundledIndex = compileHtml(sourceHtml, true);
+const bundledIndex = compileHtml(sourceHtmlWithPopouts, true);
 fs.writeFileSync(htmlPath, bundledIndex, 'utf8');
 fs.writeFileSync(standaloneHtmlPath, bundledIndex, 'utf8');
 const indexSizeMb = (fs.statSync(htmlPath).size / (1024 * 1024)).toFixed(2);
@@ -177,7 +185,36 @@ if (fs.existsSync(agendaTemplatePath)) {
   console.log(`✓ Dedicated Agenda page compiled successfully to agenda.html & agenda/index.html (${agendaSizeKb} KB)`);
 }
 
-// 5. Compile galeria.html and galeria/index.html if template exists
+// 5. Compile facilitadores.html and facilitadores/index.html if template exists
+const facilitadoresTemplatePath = path.join(rootDir, 'facilitadores.template.html');
+const facilitadoresDir = path.join(rootDir, 'facilitadores');
+const facilitadoresHtmlPath = path.join(rootDir, 'facilitadores.html');
+const facilitadoresSubHtmlPath = path.join(facilitadoresDir, 'index.html');
+
+if (fs.existsSync(facilitadoresTemplatePath)) {
+  const sourceFacilitadores = fs.readFileSync(facilitadoresTemplatePath, 'utf8');
+  // Inject the confirmed facilitator profiles (same card format as the agenda page)
+  const { injectSpeakerArticles } = require('./speaker_profiles.js');
+  const agendaSourceForProfiles = fs.existsSync(agendaTemplatePath)
+    ? fs.readFileSync(agendaTemplatePath, 'utf8')
+    : '';
+  const withArticles = injectSpeakerArticles(sourceFacilitadores, agendaSourceForProfiles, 'facilitator-');
+  const bundledFacilitadores = compileHtml(withArticles, false);
+
+  // Write facilitadores.html
+  fs.writeFileSync(facilitadoresHtmlPath, bundledFacilitadores, 'utf8');
+
+  // Write facilitadores/index.html
+  if (!fs.existsSync(facilitadoresDir)) {
+    fs.mkdirSync(facilitadoresDir, { recursive: true });
+  }
+  fs.writeFileSync(facilitadoresSubHtmlPath, bundledFacilitadores, 'utf8');
+
+  const facSizeKb = (fs.statSync(facilitadoresHtmlPath).size / 1024).toFixed(1);
+  console.log(`✓ Dedicated Facilitadores page compiled successfully to facilitadores.html & facilitadores/index.html (${facSizeKb} KB)`);
+}
+
+// 6. Compile galeria.html and galeria/index.html if template exists
 const galeriaTemplatePath = path.join(rootDir, 'galeria.template.html');
 const galeriaDir = path.join(rootDir, 'galeria');
 const galeriaHtmlPath = path.join(rootDir, 'galeria.html');
