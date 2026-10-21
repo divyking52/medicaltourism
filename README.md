@@ -58,7 +58,72 @@ Open [http://localhost:8000](http://localhost:8000)
 npx serve .
 ```
 
+### Bundled server (recommended — supports HTTP range requests for video)
+```bash
+node server.js      # http://localhost:8118
+```
+
 ---
+
+## Pages
+
+| Page | File | Notes |
+|---|---|---|
+| Inicio | `index.html` | Cinematic scroll hero, B2B deck, agenda preview, Expo, partners wall, platforms banner |
+| Agenda | `agenda.html` | Full academic agenda + keynote speaker profiles |
+| Expo | `expo.html` | Stand packages, floor plan, **confirmed exhibitors**, photo band |
+| Sede | `sede.html` | FICOTRECE venue infrastructure |
+| Galería | `galeria.html` | Historical photo/video archive |
+| Facilitadores | `facilitadores.html` | International buyer profiles (same card format as the agenda) |
+
+### Single-file builds
+| File | Contents |
+|---|---|
+| `standalone.html` | Home page only, fully self-contained (CSS, JS and video inlined) |
+| `website_standalone.html` | All six pages in one portable file with SPA routing |
+| `congreso_turismo_medico_completo.html` | Identical to `website_standalone.html` |
+
+---
+
+## Build
+
+Templates (`*.template.html`) are the source of truth. The build inlines CSS,
+JS, images and the video into the generated pages:
+
+```bash
+node bundle.js
+```
+
+This regenerates `index.html`, `standalone.html`, every dedicated page and the
+unified single-file builds, and writes `agenda/`, `expo/`, `sede/`,
+`galeria/` and `facilitadores/` directory indexes.
+
+Speaker and facilitator profiles are injected at build time from
+`agenda.template.html` by `speaker_profiles.js`, so the content exists in one
+place only.
+
+---
+
+## Deployment
+
+Static deployment, no build step on Vercel (`vercel.json` sets
+`buildCommand: null`, `outputDirectory: "."`). The generated HTML files are
+committed to the repository, so the deployed site always matches the last
+build. The project is connected to the `main` branch of the GitHub repository,
+so every push to `main` triggers a new deployment.
+
+---
+
+## Verification scripts
+
+```bash
+node scripts/verify_new_features.js      # all pages: nav, platforms, partners, photos
+node scripts/verify_header_layout.js     # header fits 390-1920px, no overlap
+node scripts/verify_whatsapp_button.js   # floating CTA on 6 pages x 6 widths
+node scripts/verify_expo_grid.js         # expo cards stay aligned and side by side
+node scripts/verify_deployment.js <url> # smoke test a deployed URL
+node scripts/check_speaker_popout.js     # profile injection integrity
+```
 
 ## Project Structure
 
