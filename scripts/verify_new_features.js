@@ -99,16 +99,25 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
         tiles: document.querySelectorAll('.partner-tile').length,
         logoTiles: document.querySelectorAll('.partner-logo-frame img').length,
         wordmarks: document.querySelectorAll('.partner-tile--wordmark').length,
-        logosInlined: [...document.querySelectorAll('.partner-logo-frame img')].every(i => i.src.startsWith('data:image')),
+        // images may be base64-inlined (local) or served from the CDN
+        logosServed: [...document.querySelectorAll('.partner-logo-frame img')]
+          .every(i => i.src.startsWith('data:image') || i.src.includes('storebox.ai')),
         logosLoaded: [...document.querySelectorAll('.partner-logo-frame img')].filter(i => i.naturalWidth > 0).length
       },
       // 7. Photography
       photoBandItems: document.querySelectorAll('.photo-band-item').length,
       photoBandLoaded: [...document.querySelectorAll('.photo-band-item img')].filter(i => i.naturalWidth > 0).length,
-      photoBandsInlined: [...document.querySelectorAll('.photo-band-item img')].every(i => i.src.startsWith('data:image')),
+      photoBandsServed: [...document.querySelectorAll('.photo-band-item img')]
+        .every(i => i.src.startsWith('data:image') || i.src.includes('storebox.ai')),
       heroPhoto: (() => {
         const h = document.querySelector('.photo-hero-bg');
-        return h ? { present: true, inlined: h.style.backgroundImage.includes('data:image') } : { present: false };
+        if (!h) return { present: false };
+        const bg = h.style.backgroundImage || '';
+        return {
+          present: true,
+          served: bg.includes('data:image') || bg.includes('storebox.ai'),
+          cdn: bg.includes('storebox.ai')
+        };
       })(),
       // Platforms banner (Travel Mexico + Hospitality Cancún)
       platforms: {
@@ -200,18 +209,18 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
       if (v.partners.tiles !== 9) problems.push(`partner tiles = ${v.partners.tiles}`);
       if (v.partners.logoTiles !== 9) problems.push(`partner logo tiles = ${v.partners.logoTiles}`);
       if (v.partners.wordmarks !== 0) problems.push(`partner wordmarks = ${v.partners.wordmarks}`);
-      if (!v.partners.logosInlined) problems.push('partner logos not inlined');
+      if (!v.partners.logosServed) problems.push('partner logos not served');
       if (v.partners.logosLoaded !== 9) problems.push(`partner logos loaded ${v.partners.logosLoaded}/9`);
     }
 
     // 7. Photography
-    if (v.photoBandItems > 0 && !v.photoBandsInlined) problems.push('photo band images not inlined');
+    if (v.photoBandItems > 0 && !v.photoBandsServed) problems.push('photo band images not served');
     if (v.photoBandItems > 0 && v.photoBandLoaded !== v.photoBandItems) {
       problems.push(`photo band images loaded ${v.photoBandLoaded}/${v.photoBandItems}`);
     }
     if (page === 'agenda.html' || page === 'facilitadores.html') {
       if (!v.heroPhoto.present) problems.push('no hero photo layer');
-      else if (!v.heroPhoto.inlined) problems.push('hero photo not inlined');
+      else if (!v.heroPhoto.served) problems.push('hero photo not served');
     }
 
     // 8. Platforms (Travel Mexico + Hospitality Cancún) — footer strip on every page
