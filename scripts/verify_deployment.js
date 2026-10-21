@@ -53,13 +53,24 @@ function head(url, range = false, depth = 0) {
   });
 }
 
+async function headRetry(url, range = false, attempts = 3) {
+  let last;
+  for (let i = 0; i < attempts; i++) {
+    last = await head(url, range);
+    if (last.status === 200 || last.status === 206) return last;
+    // Large bodies can be reset mid-transfer — retry before failing
+    await new Promise((r) => setTimeout(r, 1500));
+  }
+  return last;
+}
+
 (async () => {
   console.log(`\n=== Deployment check: ${BASE} ===\n`);
 
   console.log('--- pages ---');
   let fails = 0;
   for (const p of PAGES) {
-    const r = await head(BASE + p);
+    const r = await headRetry(BASE + p);
     const ok = r.status === 200;
     if (!ok) fails++;
     const via = r.redirectedFrom ? ` (via ${r.redirectedFrom.replace(BASE, '')})` : '';
@@ -68,7 +79,7 @@ function head(url, range = false, depth = 0) {
 
   console.log('\n--- assets ---');
   for (const a of ASSETS) {
-    const r = await head(BASE + a);
+    const r = await headRetry(BASE + a);
     const ok = r.status === 200;
     if (!ok) fails++;
     console.log(`${ok ? 'OK ' : 'ERR'}  ${a.padEnd(40)} ${r.status} ${r.type.split(';')[0]}`);
@@ -76,14 +87,15 @@ function head(url, range = false, depth = 0) {
 
   console.log('\n--- standalone downloads ---');
   for (const b of BIG) {
-    const r = await head(BASE + b);
-    const ok = r.status === 200;
+    // range request: verifies availability without pulling ~30 MB per file
+    const r = await headRetry(BASE + b, true);
+    const ok = r.status === 206 || r.status === 200;
     if (!ok) fails++;
-    console.log(`${ok ? 'OK ' : 'ERR'}  ${b.padEnd(40)} ${r.status} ${r.type.split(';')[0]}`);
+    console.log(`${ok ? 'OK ' : 'ERR'}  ${b.padEnd(40)} ${r.status} ${r.type.split(';')[0]} ${r.cr || ''}`);
   }
 
   console.log('\n--- video range request ---');
-  const v = await head(BASE + '/gemini_generated_video_d04425a4.mp4', true);
+  const v = await headRetry(BASE + '/gemini_generated_video_d04425a4.mp4', true);
   const vok = v.status === 206 || v.status === 200;
   if (!vok) fails++;
   console.log(`${vok ? 'OK ' : 'ERR'}  /gemini_generated_video_d04425a4.mp4  ${v.status} ${v.type.split(';')[0]} range=${v.range || 'n/a'}`);
