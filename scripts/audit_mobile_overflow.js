@@ -55,6 +55,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     const doc = document.documentElement;
     const out = [];
     const vw = doc.clientWidth;
+
+    // An element clipped by a hidden/auto/scroll ancestor cannot push the
+    // document sideways, so it is not a real overflow.
+    const isClipped = (el) => {
+      let p = el.parentElement;
+      while (p && p !== document.body) {
+        const cs = getComputedStyle(p);
+        if (cs.overflowX !== 'visible') return true;
+        p = p.parentElement;
+      }
+      return false;
+    };
+
     document.querySelectorAll('body *').forEach(el => {
       const cs = getComputedStyle(el);
       if (cs.position === 'fixed' || cs.display === 'none' || cs.visibility === 'hidden') return;
@@ -63,6 +76,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       const r = el.getBoundingClientRect();
       if (r.width === 0) return;
       if (r.right > vw + 1) {
+        if (isClipped(el)) return;
         out.push({
           tag: el.tagName,
           cls: (el.className || '').toString().slice(0, 40),

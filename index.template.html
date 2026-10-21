@@ -347,12 +347,25 @@
         </div><!-- /.cinema-pinned -->
       </section>
 
-      <!-- ============================================================
-           PLATFORMS BANNER — Travel Mexico & Hospitality Cancún
+                              <!-- ============================================================
+           PLATFORMS STAGE — Travel Mexico & Hospitality Cancún
+           Cinematic 3D cards driven by the interactive slider
            ============================================================ -->
-      <section class="platforms-banner" id="plataformas">
+      <section class="platforms-stage" id="plataformas" data-platforms-stage data-active="0">
+        <!-- Cinematic backdrop -->
+        <div class="platforms-cinema" aria-hidden="true">
+          <div class="platforms-gridlines"></div>
+          <div class="platforms-glow platforms-glow--gold" data-platforms-glow="0"></div>
+          <div class="platforms-glow platforms-glow--magenta" data-platforms-glow="1"></div>
+          <div class="platforms-orb platforms-orb--a" data-platforms-parallax="0.16"></div>
+          <div class="platforms-orb platforms-orb--b" data-platforms-parallax="-0.11"></div>
+          <div class="platforms-orb platforms-orb--c" data-platforms-parallax="0.07"></div>
+          <div class="platforms-trail" data-platforms-trail></div>
+          <div class="platforms-vignette"></div>
+        </div>
+
         <div class="container relative-z">
-          <div class="platforms-banner-header">
+          <div class="platforms-header" data-platforms-reveal>
             <p class="eyebrow gold-eyebrow">NUESTRAS PLATAFORMAS</p>
             <h2 class="editorial-headline text-white">
               Dos puertas de entrada<br />
@@ -363,44 +376,107 @@
             </p>
           </div>
 
-          <div class="platforms-grid">
-            <article class="platform-card">
-              <div class="platform-card-head">
-                <span class="platform-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"></path></svg>
-                </span>
-                <div>
-                  <h3 class="platform-name">TRAVEL MEXICO</h3>
-                  <p class="platform-tag">Viajes, hoteles y experiencias</p>
-                </div>
+          <!-- The stage: two cinematic cards -->
+          <div class="platforms-viewport" data-platforms-viewport>
+            <div class="platforms-track" data-platforms-track>
+              <div class="platform-card-wrap" data-platform-card-wrap="0">
+                <article class="platform-card is-active" data-platform-card="0" data-accent="gold" data-platform="travel">
+                  <div class="platform-card-media" data-platforms-media>
+                    <img src="assets/photos/platforms/travel-mexico.jpg" alt="Complejo monumental FICOTRECE en Aguascalientes, destino de convenciones en México" loading="lazy" width="1200" height="800" />
+                    <span class="platform-card-sheen" aria-hidden="true"></span>
+                    <span class="platform-card-vignette" aria-hidden="true"></span>
+                  </div>
+                  <div class="platform-card-body">
+                    <div class="platform-card-head">
+                      <span class="platform-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 0 0 0 0-20z"></path><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 0 20 0 0 1 0-20z"></path></svg>
+                      </span>
+                      <div>
+                        <h3 class="platform-name">TRAVEL MEXICO</h3>
+                        <p class="platform-tag">Viajes, hoteles y experiencias</p>
+                      </div>
+                    </div>
+                    <p class="platform-desc">
+                      Motor de reservas de México: compara hoteles, vuelos, renta de autos y tours de todo el país, y reserva en línea.
+                    </p>
+                    <a class="button primary platform-btn" href="https://travelmexico.travel" target="_blank" rel="noopener noreferrer">
+                      <span>TRAVEL MEXICO</span>
+                      <span class="btn-arrow">→</span>
+                    </a>
+                  </div>
+                  <span class="platform-card-accent" aria-hidden="true"></span>
+                </article>
               </div>
-              <p class="platform-desc">
-                Un país. Infinitas historias. Conoce los destinos de México, compara hoteles, vuelos, renta de autos y tours, y reserva en línea.
-              </p>
-              <a class="button primary platform-btn" href="https://travelmexico.travel" target="_blank" rel="noopener noreferrer">
-                <span>TRAVEL MEXICO</span>
-                <span class="btn-arrow">→</span>
-              </a>
-            </article>
 
-            <article class="platform-card">
-              <div class="platform-card-head">
-                <span class="platform-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                </span>
-                <div>
-                  <h3 class="platform-name">HOSPITALIDAD CANCÚN</h3>
-                  <p class="platform-tag">Turismo médico en el Caribe Mexicano</p>
-                </div>
+              <div class="platform-card-wrap" data-platform-card-wrap="1">
+                <article class="platform-card" data-platform-card="1" data-accent="magenta" data-platform="hospitality">
+                  <div class="platform-card-media" data-platforms-media>
+                    <img src="assets/photos/platforms/hospitality-cancun.jpg" alt="Residencia frente al mar en el Caribe Mexicano, destino de turismo médico" loading="lazy" width="1200" height="800" />
+                    <span class="platform-card-sheen" aria-hidden="true"></span>
+                    <span class="platform-card-vignette" aria-hidden="true"></span>
+                  </div>
+                  <div class="platform-card-body">
+                    <div class="platform-card-head">
+                      <span class="platform-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                      </span>
+                      <div>
+                        <h3 class="platform-name">HOSPITALIDAD CANCÚN</h3>
+                        <p class="platform-tag">Turismo médico en el Caribe Mexicano</p>
+                      </div>
+                    </div>
+                    <p class="platform-desc">
+                      Servicio de turismo médico con productos ya empaquetados: paquetes de tratamiento, hotel con traslados y concierge 360° en Riviera Maya y Cozumel.
+                    </p>
+                    <a class="button primary platform-btn" href="https://hospitalitycancun.com" target="_blank" rel="noopener noreferrer">
+                      <span>HOSPITALIDAD CANCÚN</span>
+                      <span class="btn-arrow">→</span>
+                    </a>
+                  </div>
+                  <span class="platform-card-accent" aria-hidden="true"></span>
+                </article>
               </div>
-              <p class="platform-desc">
-                Atención médica de primer nivel en Riviera Maya y Cozumel: hospitales acreditados, especialistas bilingües y concierge 360° para tu tratamiento y viaje.
-              </p>
-              <a class="button primary platform-btn" href="https://hospitalitycancun.com" target="_blank" rel="noopener noreferrer">
-                <span>HOSPITALIDAD CANCÚN</span>
-                <span class="btn-arrow">→</span>
-              </a>
-            </article>
+            </div>
+
+            <p class="platforms-swipe-hint" data-platforms-hint aria-hidden="true">
+              <span class="platforms-hint-arrow">←</span>
+              <span class="platforms-hint-text">Desliza para explorar</span>
+              <span class="platforms-hint-arrow">→</span>
+            </p>
+          </div>
+
+          <!-- The interactive slider -->
+          <div class="platforms-slider" data-platforms-slider>
+            <span class="platforms-slider-arrow platforms-slider-arrow--prev" data-platforms-arrow="prev" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+            </span>
+
+            <div class="platforms-slider-track" data-platforms-track-pill>
+              <span class="platforms-slider-thumb" data-platforms-thumb aria-hidden="true"></span>
+
+              <span class="platforms-slider-grip" data-platforms-grip role="slider" tabindex="0"
+                    aria-label="Cambiar de plataforma" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1"
+                    aria-valuetext="Travel Mexico" aria-orientation="horizontal">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7l-4 5 4 5"></path><path d="M15 7l4 5-4 5"></path></svg>
+              </span>
+
+              <button class="platforms-slider-option is-active" type="button" data-platforms-option="0" aria-pressed="true">
+                <span class="platforms-option-text">TRAVEL MEXICO</span>
+              </button>
+              <button class="platforms-slider-option" type="button" data-platforms-option="1" aria-pressed="false">
+                <span class="platforms-option-text">HOSPITALIDAD CANCÚN</span>
+              </button>
+            </div>
+
+            <span class="platforms-slider-arrow platforms-slider-arrow--next" data-platforms-arrow="next" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+            </span>
+          </div>
+
+          <!-- Pagination -->
+          <div class="platforms-dots" data-platforms-dots role="tablist" aria-label="Plataformas">
+            <button class="platform-dot is-active" type="button" role="tab" data-platforms-dot="0" aria-selected="true" aria-label="Travel Mexico"><span></span></button>
+            <button class="platform-dot" type="button" role="tab" data-platforms-dot="1" aria-selected="false" aria-label="Hospitality Cancún"><span></span></button>
           </div>
         </div>
       </section>
@@ -1228,6 +1304,7 @@
   <!-- Site i18n -->
   <script src="i18n.js"></script>
   <script src="i18n-engine.js"></script>
+  <script src="platforms-stage.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

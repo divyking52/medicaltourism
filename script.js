@@ -1600,7 +1600,7 @@
 
     // Per-card local mouse coordinate tracking for dynamic smoke illumination
     const interactiveCards = document.querySelectorAll(
-      '.video-card, .business-card, .photo-card, .rec-card, .contact-box, .venue-feature-card, .stat-hero-card, .process-card, .portal-card, .speaker-mini-card, .matchmaking-banner, .expo-venue-teaser-card, .ally-item'
+      '.video-card, .business-card, .photo-card, .rec-card, .contact-box, .venue-feature-card, .stat-hero-card, .process-card, .portal-card, .speaker-mini-card, .matchmaking-banner, .expo-venue-teaser-card, .ally-item, .platform-card'
     );
     interactiveCards.forEach(card => {
       card.addEventListener('mousemove', (e) => {

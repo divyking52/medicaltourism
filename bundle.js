@@ -11,6 +11,7 @@ const stPath = path.join(rootDir, 'assets', 'ScrollTrigger.min.js');
 const scriptPath = path.join(rootDir, 'script.js');
 const i18nDictPath = path.join(rootDir, 'i18n.js');
 const i18nEnginePath = path.join(rootDir, 'i18n-engine.js');
+const platformsStagePath = path.join(rootDir, 'platforms-stage.js');
 const templatePath = path.join(rootDir, 'index.template.html');
 const expoTemplatePath = path.join(rootDir, 'expo.template.html');
 const expoDir = path.join(rootDir, 'expo');
@@ -37,6 +38,7 @@ const scrollTrigger = fs.existsSync(stPath) ? fs.readFileSync(stPath, 'utf8') : 
 const script = fs.readFileSync(scriptPath, 'utf8');
 const i18nDict = fs.existsSync(i18nDictPath) ? fs.readFileSync(i18nDictPath, 'utf8') : '';
 const i18nEngine = fs.existsSync(i18nEnginePath) ? fs.readFileSync(i18nEnginePath, 'utf8') : '';
+const platformsStage = fs.existsSync(platformsStagePath) ? fs.readFileSync(platformsStagePath, 'utf8') : '';
 
 // Build Asset Dictionary for base64 Data URIs
 const mimeTypes = {
@@ -104,7 +106,11 @@ function compileHtml(templateString, includeVideo = false) {
   const scriptsRegex = /<!--\s*(?:Animation & Smooth Scroll Engines|Lenis Smooth Scroll Engine)\s*-->[\s\S]*?<script\s+src=["']script\.js["']><\/script>/i;
   const fallbackScriptsRegex = /<script\s+src=["']assets\/(?:gsap\.min\.js|lenis\.min\.js)["']>[\s\S]*?<script\s+src=["']script\.js["']><\/script>/i;
 
-  const inlinedScripts = `${includeVideo ? videoBase64Script : ''}<!-- GSAP Animation Engine (Inlined) -->\n  <script>\n${gsap}\n  </script>\n  <!-- ScrollTrigger Plugin (Inlined) -->\n  <script>\n${scrollTrigger}\n  </script>\n  <!-- Lenis Smooth Scroll Engine (Inlined) -->\n  <script>\n${lenis}\n  </script>\n${i18nDict ? `  <!-- Site i18n Dictionary (Inlined) -->\n  <script>\n${i18nDict}\n  </script>\n` : ''}${i18nEngine ? `  <!-- Site i18n Engine (Inlined) -->\n  <script>\n${i18nEngine}\n  </script>\n` : ''}  <!-- Main Application Script (Inlined) -->\n  <script>\n${script}\n  </script>`;
+  const inlinedScripts = `${includeVideo ? videoBase64Script : ''}<!-- GSAP Animation Engine (Inlined) -->\n  <script>\n${gsap}\n  </script>\n  <!-- ScrollTrigger Plugin (Inlined) -->\n  <script>\n${scrollTrigger}\n  </script>\n  <!-- Lenis Smooth Scroll Engine (Inlined) -->\n  <script>\n${lenis}\n  </script>\n${i18nDict ? `  <!-- Site i18n Dictionary (Inlined) -->\n  <script>\n${i18nDict}\n  </script>\n` : ''}${i18nEngine ? `  <!-- Site i18n Engine (Inlined) -->\n  <script>\n${i18nEngine}\n  </script>\n` : ''}${platformsStage ? `  <!-- Platforms Stage (Inlined) -->
+  <script>
+${platformsStage}
+  </script>
+` : ''}  <!-- Main Application Script (Inlined) -->\n  <script>\n${script}\n  </script>`;
 
   if (scriptsRegex.test(output)) {
     output = output.replace(scriptsRegex, () => inlinedScripts);
