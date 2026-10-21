@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Facilitadores · 15° Congreso de Turismo Médico 2026</title>
-  <meta name="description" content="Facilitadores de Turismo Médico de Estados Unidos, Canadá y México: aseguradoras, brokers, agencias, tour operadores y financiadoras que participan en las citas de negocios del 15° Congreso de Turismo Médico 2026." data-facilitators />Agenda oficial y conferencistas magistrales del 15° Congreso de Turismo Médico 2026. Conoce a los líderes y gurús internacionales que transforman la salud transfronteriza." />
+  <meta name="description" content="Facilitadores de Turismo Médico de Estados Unidos, Canadá y México: aseguradoras, brokers, agencias, tour operadores y financiadoras que participan en las citas de negocios del 15° Congreso de Turismo Médico 2026." />
 
   <!-- Google Fonts: Playfair Display, DM Sans & Chakra Petch -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,8 +16,21 @@
   <link rel="icon" type="image/png" href="assets/brand_logo_300.png" />
 
   <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('is-preloading');</script>
+
 </head>
 <body class="agenda-page facilitators-page">
+    <!-- ============================================================
+         PRELOADER — holds the page while critical assets are warmed up
+         ============================================================ -->
+    <div class="page-loader" id="pageLoader" role="status" aria-live="polite">
+      <div class="page-loader-inner">
+        <img class="page-loader-logo" src="assets/brand_logo_600.png" alt="15° Congreso de Turismo Médico" width="280" height="42" />
+        <div class="page-loader-bar"><span class="page-loader-fill" id="loaderProgress"></span></div>
+        <p class="page-loader-status"><span class="page-loader-pct" id="loaderPct">0</span>% · Preparando la experiencia</p>
+      </div>
+    </div>
+
   <div class="site" id="top">
 
     <!-- Ambient Interactive Smoke Background Canvas -->
@@ -27,7 +40,7 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="nav scrolled" id="mainNav" style="background: rgba(6, 26, 43, 0.95); backdrop-filter: blur(12px);">
+    <header class="nav scrolled" id="mainNav" style="background: rgba(6, 26, 43, 0.96);">
       <div class="nav-container">
         <a class="brand" href="index.html#top" aria-label="15° Congreso de Turismo Médico">
           <img src="assets/brand_logo_600.png" alt="15° Congreso de Turismo Médico" class="brand-logo-img" width="280" height="42" />
@@ -55,6 +68,11 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
           </div>
+          <button class="lang-toggle" type="button" data-lang-toggle aria-pressed="false" aria-label="Switch to English / Cambiar a inglés" title="English">
+            <span class="lang-toggle-opt" data-lang="es">ES</span>
+            <span class="lang-toggle-sep" aria-hidden="true"></span>
+            <span class="lang-toggle-opt" data-lang="en">EN</span>
+          </button>
           <button class="pill enter-pill lbl btn-register-trigger" type="button" aria-haspopup="dialog" data-type="Solo Conferencias">
             <svg class="ico" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="0" y="0" width="4" height="5"/><rect x="3" y="4" width="4" height="4"/><rect x="0" y="7" width="4" height="4"/></svg>
             <span class="t">REGISTRARME</span>
@@ -101,6 +119,11 @@
           </div>
           <p class="drawer-phone">📞 (55) 3083 3864</p>
           <p class="drawer-meta">2 &amp; 3 DE DICIEMBRE 2026 · MÉXICO</p>
+          <button class="lang-toggle lang-toggle--block" type="button" data-lang-toggle aria-pressed="false" aria-label="Switch to English / Cambiar a inglés">
+            <span class="lang-toggle-opt" data-lang="es">ES</span>
+            <span class="lang-toggle-sep" aria-hidden="true"></span>
+            <span class="lang-toggle-opt" data-lang="en">EN</span>
+          </button>
           <button class="button primary btn-register-trigger w-full" type="button" data-type="Solo Conferencias">
             Solicitar Registro <span>→</span>
           </button>
@@ -114,7 +137,7 @@
            HERO SECTION: FACILITADORES (B2B BUYERS & MATCHMAKERS)
            ============================================================ -->
       <section class="agenda-hero-section">
-        <div class="photo-hero-bg" style="background-image: url('https://admin.storebox.ai/media/9d2df151-23ca-4484-a18e-b1d06e387e46/81519a04-1fb6-4be4-bdc2-c61f9722502d/facilitadores-hero.jpg');" aria-hidden="true"></div>
+        <div class="photo-hero-bg" style="background-image: url('assets/photos/heroes/facilitadores-hero.jpg');" aria-hidden="true"></div>
         <div class="photo-hero-overlay" aria-hidden="true"></div>
         <div class="container relative-z">
           <div class="section-meta light-meta">
@@ -590,6 +613,9 @@
   <!-- Lenis Smooth Scroll Engine -->
   <script src="assets/lenis.min.js"></script>
   <!-- Main Script -->
+  <!-- Site i18n -->
+  <script src="i18n.js"></script>
+  <script src="i18n-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

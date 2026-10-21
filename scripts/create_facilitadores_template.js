@@ -33,9 +33,12 @@ replaceOnce(
   'title'
 );
 
+// Replace the whole <meta name="description"> tag (the agenda template's own
+// description belongs to the agenda page, not to the facilitators page).
+// The pattern must stop at the tag's own closing quote, not at a later one.
 replaceOnce(
-  `<meta name="description" content="`,
-  `<meta name="description" content="Facilitadores de Turismo Médico de Estados Unidos, Canadá y México: aseguradoras, brokers, agencias, tour operadores y financiadoras que participan en las citas de negocios del 15° Congreso de Turismo Médico 2026." data-facilitators />`,
+  /<meta name="description" content="[^"]*"\s*\/?>/.exec(html)[0],
+  `<meta name="description" content="Facilitadores de Turismo Médico de Estados Unidos, Canadá y México: aseguradoras, brokers, agencias, tour operadores y financiadoras que participan en las citas de negocios del 15° Congreso de Turismo Médico 2026." />`,
   'description'
 );
 

@@ -1326,10 +1326,22 @@
       });
     }
 
+    function setLabelText(el, value) {
+      // Update the existing text node in place. Replacing `textContent`
+      // would swap the node out and break any reference held to it
+      // (the language switcher restores the original copy through it).
+      const node = el.firstChild;
+      if (node && node.nodeType === 3) {
+        node.nodeValue = value;
+      } else {
+        el.textContent = value;
+      }
+    }
+
     function settleLabel(el) {
       if (el._raf) { cancelAnimationFrame(el._raf); el._raf = 0; }
       if (el._t) { clearTimeout(el._t); el._t = 0; }
-      el.textContent = el.dataset.text || '';
+      setLabelText(el, el.dataset.text || '');
     }
 
     function decodeLabel(el, dur) {
@@ -1363,7 +1375,7 @@
           else if (i < front + 3.6) out += (c === ' ' ? ' ' : rand[i]);
           else break;
         }
-        el.textContent = out;
+        setLabelText(el, out);
         if (p < 1) {
           el._raf = requestAnimationFrame(step);
         } else {
@@ -1382,6 +1394,15 @@
     });
 
     reserveWidths();
+
+    // Switching language replaces the label copy. The language switcher
+    // keeps the decode cache in sync, so we only need to stop any running
+    // animation (it would replay the old wording) and re-measure the
+    // reserved widths, which were taken from the previous copy.
+    document.addEventListener('site:locale', () => {
+      labels.forEach(el => { settleLabel(el); });
+      reserveWidths();
+    });
 
     // Staggered initial boot decode
     function bootDecode() {
@@ -1604,6 +1625,83 @@
   initContactStarBtn();
   initYouTubeFacades();
   initSmokeHoverEffects();
+  initPreloader();
+
+  /**
+   * Preloader — warms up the critical assets and lifts the overlay so the
+   * first paint the visitor sees is a complete one.
+   */
+  function initPreloader() {
+    const loader = document.getElementById('pageLoader');
+    if (!loader) return;
+
+    const fill = loader.querySelector('.page-loader-fill');
+    const pctEl = loader.querySelector('.page-loader-pct');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      if (fill) fill.style.width = '100%';
+      if (pctEl) pctEl.textContent = '100';
+
+      const hide = () => {
+        loader.classList.add('is-done');
+        document.documentElement.classList.remove('is-preloading');
+        setTimeout(() => { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 900);
+      };
+
+      if (reducedMotion) hide();
+      else setTimeout(hide, 280);
+    };
+
+    // --- Collect the critical assets for this page ---
+    const urls = [];
+    const seen = new Set();
+    const add = (u) => {
+      if (u && u.indexOf('data:') !== 0 && u.indexOf('blob:') !== 0 && !seen.has(u)) {
+        seen.add(u);
+        urls.push(u);
+      }
+    };
+
+    document.querySelectorAll('img').forEach((img) => add(img.getAttribute('src')));
+    document.querySelectorAll('[style*="background-image"]').forEach((el) => {
+      const m = (el.getAttribute('style') || '').match(/url\(['"]?([^'")]+)/);
+      if (m) add(m[1]);
+    });
+
+    // Warm up the first batch; the rest stream in as the visitor scrolls.
+    const batch = urls.slice(0, 12);
+    const total = batch.length + 1;
+    let settled = 0;
+
+    const bump = () => {
+      settled++;
+      const pct = Math.min(99, Math.round((settled / total) * 100));
+      if (fill) fill.style.width = pct + '%';
+      if (pctEl) pctEl.textContent = String(pct);
+    };
+
+    batch.forEach((u) => {
+      const probe = new Image();
+      probe.onload = bump;
+      probe.onerror = bump;
+      probe.src = u;
+    });
+
+    // Lift once the document is fully loaded…
+    if (document.readyState === 'complete') {
+      bump();
+      finish();
+    } else {
+      window.addEventListener('load', () => { bump(); finish(); }, { once: true });
+    }
+
+    // …but never trap the visitor behind the overlay.
+    setTimeout(finish, 6000);
+  }
 
   // --- Event Listeners for Resize & Scroll ---
   window.addEventListener('scroll', onScroll, { passive: true });

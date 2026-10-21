@@ -20,8 +20,21 @@
   <link rel="icon" type="image/png" href="assets/brand_logo_300.png" />
 
   <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('is-preloading');</script>
+
 </head>
 <body>
+    <!-- ============================================================
+         PRELOADER — holds the page while critical assets are warmed up
+         ============================================================ -->
+    <div class="page-loader" id="pageLoader" role="status" aria-live="polite">
+      <div class="page-loader-inner">
+        <img class="page-loader-logo" src="assets/brand_logo_600.png" alt="15° Congreso de Turismo Médico" width="280" height="42" />
+        <div class="page-loader-bar"><span class="page-loader-fill" id="loaderProgress"></span></div>
+        <p class="page-loader-status"><span class="page-loader-pct" id="loaderPct">0</span>% · Preparando la experiencia</p>
+      </div>
+    </div>
+
   <div class="site" id="top">
 
     <!-- Ambient Interactive Smoke Background Canvas -->
@@ -59,6 +72,11 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
           </div>
+          <button class="lang-toggle" type="button" data-lang-toggle aria-pressed="false" aria-label="Switch to English / Cambiar a inglés" title="English">
+            <span class="lang-toggle-opt" data-lang="es">ES</span>
+            <span class="lang-toggle-sep" aria-hidden="true"></span>
+            <span class="lang-toggle-opt" data-lang="en">EN</span>
+          </button>
           <button class="pill enter-pill lbl btn-register-trigger" type="button" aria-haspopup="dialog">
             <svg class="ico" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="0" y="0" width="4" height="5"/><rect x="3" y="4" width="4" height="4"/><rect x="0" y="7" width="4" height="4"/></svg>
             <span class="t">REGISTRARME</span>
@@ -105,6 +123,11 @@
           </div>
           <p class="drawer-phone">📞 (55) 3083 3864</p>
           <p class="drawer-meta">2 &amp; 3 DE DICIEMBRE 2026 · MÉXICO</p>
+          <button class="lang-toggle lang-toggle--block" type="button" data-lang-toggle aria-pressed="false" aria-label="Switch to English / Cambiar a inglés">
+            <span class="lang-toggle-opt" data-lang="es">ES</span>
+            <span class="lang-toggle-sep" aria-hidden="true"></span>
+            <span class="lang-toggle-opt" data-lang="en">EN</span>
+          </button>
           <button class="button primary btn-register-trigger w-full" type="button">
             Solicitar Registro <span>→</span>
           </button>
@@ -164,7 +187,6 @@
 
             <div class="scroll-cue lbl">
               <div class="scroll-cue-top">
-                <svg class="ico" viewBox="0 0 5 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 0 H5 L2.5 3 Z"/><path d="M0 4 H5 L2.5 7 Z"/></svg>
                 <span class="t">DESPLÁZATE PARA EXPLORAR</span>
                 <span class="scene-counter" id="sceneCounter">01 / 05</span>
               </div>
@@ -325,6 +347,63 @@
         </div><!-- /.cinema-pinned -->
       </section>
 
+      <!-- ============================================================
+           PLATFORMS BANNER — Travel Mexico & Hospitality Cancún
+           ============================================================ -->
+      <section class="platforms-banner" id="plataformas">
+        <div class="container relative-z">
+          <div class="platforms-banner-header">
+            <p class="eyebrow gold-eyebrow">NUESTRAS PLATAFORMAS</p>
+            <h2 class="editorial-headline text-white">
+              Dos puertas de entrada<br />
+              <em class="headline-accent gold-accent">al turismo médico.</em>
+            </h2>
+            <p class="platforms-banner-intro">
+              Dos plataformas hermanas para vivir México de otra manera: reserva viajes y experiencias con Travel Mexico, o encuentra atención médica de primer nivel en el Caribe Mexicano con Hospitality Cancún.
+            </p>
+          </div>
+
+          <div class="platforms-grid">
+            <article class="platform-card">
+              <div class="platform-card-head">
+                <span class="platform-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"></path></svg>
+                </span>
+                <div>
+                  <h3 class="platform-name">TRAVEL MEXICO</h3>
+                  <p class="platform-tag">Viajes, hoteles y experiencias</p>
+                </div>
+              </div>
+              <p class="platform-desc">
+                Un país. Infinitas historias. Conoce los destinos de México, compara hoteles, vuelos, renta de autos y tours, y reserva en línea.
+              </p>
+              <a class="button primary platform-btn" href="https://travelmexico.travel" target="_blank" rel="noopener noreferrer">
+                <span>TRAVEL MEXICO</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </article>
+
+            <article class="platform-card">
+              <div class="platform-card-head">
+                <span class="platform-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                </span>
+                <div>
+                  <h3 class="platform-name">HOSPITALIDAD CANCÚN</h3>
+                  <p class="platform-tag">Turismo médico en el Caribe Mexicano</p>
+                </div>
+              </div>
+              <p class="platform-desc">
+                Atención médica de primer nivel en Riviera Maya y Cozumel: hospitales acreditados, especialistas bilingües y concierge 360° para tu tratamiento y viaje.
+              </p>
+              <a class="button primary platform-btn" href="https://hospitalitycancun.com" target="_blank" rel="noopener noreferrer">
+                <span>HOSPITALIDAD CANCÚN</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
       <!-- ============================================================
            SECTION 01 — BUSINESS MATCHMAKING (Market Place B2B)
            Dark Navy Background (#061A2B) - 100% Authentic Website Rules
@@ -574,7 +653,7 @@
           <!-- Expo Highlights Grid (Concise Portals to Dedicated Pages) -->
           <div class="section-portals" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px; margin-top: 36px;">
             <!-- Card 1: Pabellón & Stands Comerciales -->
-            <div class="portal-card" style="background: rgba(6, 26, 43, 0.75); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 32px 28px; backdrop-filter: blur(12px); box-shadow: 0 12px 36px rgba(0,0,0,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="portal-card" style="background: rgba(8, 30, 50, 0.92); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 32px 28px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
                   <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--gold);"></span>
@@ -604,7 +683,7 @@
             </div>
 
             <!-- Card 2: Plano Arquitectónico de Stands -->
-            <div class="portal-card" style="background: rgba(6, 26, 43, 0.75); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 32px 28px; backdrop-filter: blur(12px); box-shadow: 0 12px 36px rgba(0,0,0,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="portal-card" style="background: rgba(8, 30, 50, 0.92); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 32px 28px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
                   <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--magenta);"></span>
@@ -803,63 +882,6 @@
         </div>
       </section>
 
-      <!-- ============================================================
-           PLATFORMS BANNER — Travel Mexico & Hospitality Cancún
-           ============================================================ -->
-      <section class="platforms-banner" id="plataformas">
-        <div class="container relative-z">
-          <div class="platforms-banner-header">
-            <p class="eyebrow gold-eyebrow">NUESTRAS PLATAFORMAS</p>
-            <h2 class="editorial-headline text-white">
-              Dos puertas de entrada<br />
-              <em class="headline-accent gold-accent">al turismo médico.</em>
-            </h2>
-            <p class="platforms-banner-intro">
-              Dos plataformas hermanas para vivir México de otra manera: reserva viajes y experiencias con Travel Mexico, o encuentra atención médica de primer nivel en el Caribe Mexicano con Hospitality Cancún.
-            </p>
-          </div>
-
-          <div class="platforms-grid">
-            <article class="platform-card">
-              <div class="platform-card-head">
-                <span class="platform-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"></path></svg>
-                </span>
-                <div>
-                  <h3 class="platform-name">TRAVEL MEXICO</h3>
-                  <p class="platform-tag">Viajes, hoteles y experiencias</p>
-                </div>
-              </div>
-              <p class="platform-desc">
-                Un país. Infinitas historias. Conoce los destinos de México, compara hoteles, vuelos, renta de autos y tours, y reserva en línea.
-              </p>
-              <a class="button primary platform-btn" href="https://travelmexico.travel" target="_blank" rel="noopener noreferrer">
-                <span>TRAVEL MEXICO</span>
-                <span class="btn-arrow">→</span>
-              </a>
-            </article>
-
-            <article class="platform-card">
-              <div class="platform-card-head">
-                <span class="platform-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                </span>
-                <div>
-                  <h3 class="platform-name">HOSPITALIDAD CANCÚN</h3>
-                  <p class="platform-tag">Turismo médico en el Caribe Mexicano</p>
-                </div>
-              </div>
-              <p class="platform-desc">
-                Atención médica de primer nivel en Riviera Maya y Cozumel: hospitales acreditados, especialistas bilingües y concierge 360° para tu tratamiento y viaje.
-              </p>
-              <a class="button primary platform-btn" href="https://hospitalitycancun.com" target="_blank" rel="noopener noreferrer">
-                <span>HOSPITALIDAD CANCÚN</span>
-                <span class="btn-arrow">→</span>
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
 
       <!-- ============================================================
            STRATEGIC PARTNERS — INSTITUTIONAL & COMMERCIAL BACKING
@@ -1203,6 +1225,9 @@
   <script src="assets/ScrollTrigger.min.js"></script>
   <script src="assets/lenis.min.js"></script>
   <!-- Main Script -->
+  <!-- Site i18n -->
+  <script src="i18n.js"></script>
+  <script src="i18n-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -16,8 +16,21 @@
 
   <!-- External Stylesheet (Inlined by build script) -->
   <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('is-preloading');</script>
+
 </head>
 <body class="sede-page">
+    <!-- ============================================================
+         PRELOADER — holds the page while critical assets are warmed up
+         ============================================================ -->
+    <div class="page-loader" id="pageLoader" role="status" aria-live="polite">
+      <div class="page-loader-inner">
+        <img class="page-loader-logo" src="assets/brand_logo_600.png" alt="15° Congreso de Turismo Médico" width="280" height="42" />
+        <div class="page-loader-bar"><span class="page-loader-fill" id="loaderProgress"></span></div>
+        <p class="page-loader-status"><span class="page-loader-pct" id="loaderPct">0</span>% · Preparando la experiencia</p>
+      </div>
+    </div>
+
   <div class="site" id="top">
 
     <!-- Ambient Interactive Smoke Background Canvas -->
@@ -55,6 +68,11 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
           </div>
+          <button class="lang-toggle" type="button" data-lang-toggle aria-pressed="false" aria-label="Switch to English / Cambiar a inglés" title="English">
+            <span class="lang-toggle-opt" data-lang="es">ES</span>
+            <span class="lang-toggle-sep" aria-hidden="true"></span>
+            <span class="lang-toggle-opt" data-lang="en">EN</span>
+          </button>
           <button class="pill enter-pill lbl btn-register-trigger" type="button" aria-haspopup="dialog" data-type="Registro Sede">
             <svg class="ico" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="0" y="0" width="4" height="5"/><rect x="3" y="4" width="4" height="4"/><rect x="0" y="7" width="4" height="4"/></svg>
             <span class="t">REGISTRARME</span>
@@ -522,6 +540,9 @@
   <!-- Lenis Smooth Scroll Engine -->
   <script src="assets/lenis.min.js"></script>
   <!-- Main Script -->
+  <!-- Site i18n -->
+  <script src="i18n.js"></script>
+  <script src="i18n-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
