@@ -12,7 +12,7 @@ const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const chromePort = 9400 + Math.floor(Math.random() * 300);
 const WIDTHS = [320, 360, 390];
 const PAGES = ['index.html', 'agenda.html', 'expo.html', 'sede.html', 'galeria.html', 'facilitadores.html'];
-const BASE = 'http://localhost:8118/';
+const BASE = (process.argv[2] || 'http://localhost:8118').replace(/\/$/, '') + '/';
 
 function getJson(url) {
   return new Promise((resolve, reject) => {
