@@ -90,7 +90,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   check('headline preserved', content.headline === 'Descubre México desde nuevas perspectivas.', content.headline);
   check('intro preserved', /Dos plataformas hermanas/.test(content.intro));
-  check('both card names preserved', content.names.join('|') === 'TRAVEL MEXICO|HOSPITALIDAD CANCÚN', content.names.join('|'));
+  check('both card names preserved', content.names.join('|') === 'TRAVEL MEXICO|Hospitality Cancun', content.names.join('|'));
   check('both card tags preserved', content.tags.length === 2 && /Viajes, hoteles/.test(content.tags[0]) && /Caribe Mexicano/.test(content.tags[1]));
   check('both descriptions preserved', content.descs.length === 2 && content.descs.every(d => d.length > 60));
   check('Travel Mexico link preserved', content.links[0] && content.links[0].href === 'https://travelmexico.travel/', content.links[0] && content.links[0].href);

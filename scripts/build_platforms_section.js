@@ -84,7 +84,7 @@ const SECTION = `      <!-- ====================================================
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
                       </span>
                       <div>
-                        <h3 class="platform-name">HOSPITALIDAD CANCÚN</h3>
+                        <h3 class="platform-name">Hospitality Cancun</h3>
                         <p class="platform-tag">Turismo médico en el Caribe Mexicano</p>
                       </div>
                     </div>
@@ -92,7 +92,7 @@ const SECTION = `      <!-- ====================================================
                       Servicio de turismo médico con productos ya empaquetados: paquetes de tratamiento, hotel con traslados y concierge 360° en Riviera Maya y Cozumel.
                     </p>
                     <a class="button primary platform-btn" href="https://hospitalitycancun.com" target="_blank" rel="noopener noreferrer">
-                      <span>HOSPITALIDAD CANCÚN</span>
+                      <span>Hospitality Cancun</span>
                       <span class="btn-arrow">→</span>
                     </a>
                   </div>
@@ -127,7 +127,7 @@ const SECTION = `      <!-- ====================================================
                 <span class="platforms-option-text">TRAVEL MEXICO</span>
               </button>
               <button class="platforms-slider-option" type="button" data-platforms-option="1" aria-pressed="false">
-                <span class="platforms-option-text">HOSPITALIDAD CANCÚN</span>
+                <span class="platforms-option-text">Hospitality Cancun</span>
               </button>
             </div>
 

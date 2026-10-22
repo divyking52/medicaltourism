@@ -686,7 +686,7 @@
     'Desliza para explorar': 'Swipe to explore',
     'Cambiar de plataforma': 'Switch platform',
     'Travel Mexico': 'Travel Mexico',
-    'Hospitality Cancún': 'Hospitality Cancún',
+    'Hospitality Cancun': 'Hospitality Cancun',
     'Motor de reservas de México: compara hoteles, vuelos, renta de autos y tours de todo el país, y reserva en línea.': 'Mexico’s reservation engine: compare hotels, flights, car rental and tours across the country, and book online.',
     'Servicio de turismo médico con productos ya empaquetados: paquetes de tratamiento, hotel con traslados y concierge 360° en Riviera Maya y Cozumel.': 'A medical tourism service with ready-made packages: treatment packages, hotel with transfers and a 360° concierge in Riviera Maya and Cozumel.',
     'Reuniones B2B preagendadas para conectar proveedores de servicios médicos con compradores, facilitadores, aseguradoras y aliados internacionales de Canadá, Estados Unidos y México.': 'Pre-scheduled B2B meetings to connect medical service providers with buyers, facilitators, insurance companies, and international partners from Canada, the United States, and Mexico.',

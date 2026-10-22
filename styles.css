@@ -6407,7 +6407,7 @@ html.is-preloading {
    ============================================================ */
 .whatsapp-float {
   position: fixed;
-  bottom: 24px;
+  bottom: 38px;
   right: 24px;
   z-index: 150;
   display: flex;
@@ -6490,7 +6490,7 @@ html.is-preloading {
 /* Keep clear of the floating back-to-top control on mobile */
 @media (max-width: 768px) {
   .whatsapp-float {
-    bottom: 88px;
+    bottom: 102px;
     right: 16px;
     height: 52px;
     padding: 0 15px 0 13px;

@@ -228,7 +228,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     if (v.platforms.footerButtons.length !== 2) problems.push(`footer platform buttons = ${v.platforms.footerButtons.length}`);
     const expectFooter = [
       { text: 'TRAVEL MEXICO', href: 'https://travelmexico.travel' },
-      { text: 'HOSPITALIDAD CANCÚN', href: 'https://hospitalitycancun.com' },
+      { text: 'Hospitality Cancun', href: 'https://hospitalitycancun.com' },
     ];
     if (JSON.stringify(v.platforms.footerButtons) !== JSON.stringify(expectFooter)) {
       problems.push(`footer platforms = ${JSON.stringify(v.platforms.footerButtons)}`);
@@ -239,7 +239,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
       if (v.platforms.bannerButtons.length !== 2) problems.push(`banner platform buttons = ${v.platforms.bannerButtons.length}`);
       const expectBanner = [
         { text: 'TRAVEL MEXICO', href: 'https://travelmexico.travel' },
-        { text: 'HOSPITALIDAD CANCÚN', href: 'https://hospitalitycancun.com' },
+        { text: 'Hospitality Cancun', href: 'https://hospitalitycancun.com' },
       ];
       if (JSON.stringify(v.platforms.bannerButtons) !== JSON.stringify(expectBanner)) {
         problems.push(`banner platforms = ${JSON.stringify(v.platforms.bannerButtons)}`);
