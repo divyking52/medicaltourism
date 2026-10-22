@@ -16,6 +16,7 @@
   const sceneCounter = document.getElementById('sceneCounter');
   const timeCode = document.getElementById('timeCode');
   const cinematicShade = document.querySelector('.cinematic-shade');
+  const heroStill = document.querySelector('.hero-still');
   const sceneBlocks = [...document.querySelectorAll('.scene-block')];
 
   // Mobile Drawer Elements
@@ -309,6 +310,14 @@
     return clamp(-rect.top / maxScroll, 0, 1);
   }
 
+  // --- Dissolve the Scene 01 hero still into the film as chapter 01 ends ---
+  function updateHeroStill(progress) {
+    if (!heroStill) return;
+    const t = clamp((progress - 0.11) / 0.10, 0, 1);
+    const eased = t * t * (3 - 2 * t); // smoothstep: no visible pop at either end
+    heroStill.style.opacity = (1 - eased).toFixed(3);
+  }
+
   // --- Update Chapter Rail & Counter ---
   function updateChapterRail(progress) {
     let activeSceneIndex = 1;
@@ -368,6 +377,7 @@
             const p = self.progress;
             updateHUD(p);
             updateChapterRail(p);
+            updateHeroStill(p);
             // On desktop: seek video frame-by-frame. On mobile: NEVER seek video on scroll - native video plays smoothly in background!
             if (!isTouchDevice && !prefersReducedMotion) {
               seekVideoTo(p * duration);
@@ -479,6 +489,7 @@
     });
 
     updateChapterRail(progress);
+    updateHeroStill(progress);
 
     if (cinematicShade) {
       if (progress > 0.85) {
