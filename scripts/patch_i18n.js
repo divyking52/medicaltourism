@@ -112,7 +112,15 @@ const PATCH = {
   'Motor de reservas de México: compara hoteles, vuelos, renta de autos y tours de todo el país, y reserva en línea.': 'Mexico’s reservation engine: compare hotels, flights, car rental and tours across the country, and book online.',
   'Servicio de turismo médico con productos ya empaquetados: paquetes de tratamiento, hotel con traslados y concierge 360° en Riviera Maya y Cozumel.': 'A medical tourism service with ready-made packages: treatment packages, hotel with transfers and a 360° concierge in Riviera Maya and Cozumel.',
   'Un país. Infinitas historias. Conoce los destinos de México, compara hoteles, vuelos, renta de autos y tours, y reserva en línea.': 'One country. Infinite stories. Discover Mexico’s destinations, compare hotels, flights, car rental and tours, and book online.',
-  'Atención médica de primer nivel en Riviera Maya y Cozumel: hospitales acreditados, especialistas bilingües y concierge 360° para tu tratamiento y viaje.': 'First-class healthcare in Riviera Maya and Cozumel: accredited hospitals, bilingual specialists and a 360° concierge for your treatment and trip.'
+  'Atención médica de primer nivel en Riviera Maya y Cozumel: hospitales acreditados, especialistas bilingües y concierge 360° para tu tratamiento y viaje.': 'First-class healthcare in Riviera Maya and Cozumel: accredited hospitals, bilingual specialists and a 360° concierge for your treatment and trip.',
+  'Reuniones B2B preagendadas para conectar proveedores de servicios médicos con compradores, facilitadores, aseguradoras y aliados internacionales de Canadá, Estados Unidos y México.': 'Pre-scheduled B2B meetings to connect medical service providers with buyers, facilitators, insurance companies, and international partners from Canada, the United States, and Mexico.',
+  'Reuniones B2B preagendadas de 15 minutos para conectar oferta médica con compradores, facilitadores, aseguradoras y aliados internacionales de Canadá, EE.UU. y México.': 'Pre-scheduled B2B meetings to connect medical service providers with buyers, facilitators, insurance companies, and international partners from Canada, the United States, and Mexico.',
+  'Citas 1-to-1 de 15 Minutos': 'One-on-one 15-minute meetings',
+  'Facilitadores de EE.UU. & Canadá': 'Facilitators from the US & Canada',
+  'Software de Citas Pre-Establecidas': 'Pre-Scheduled Meeting Engine',
+  'Stands 2.44 x 3 m HD': 'HD 2.44 x 3 m stands',
+  'Agenda de Citas Incluida': 'Meeting agenda included',
+  'Sede: FICOTRECE': 'Venue: FICOTRECE'
 };
 
 let src = fs.readFileSync(FILE, 'utf8');
