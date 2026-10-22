@@ -88,7 +88,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     return JSON.stringify({ links, names, tags, descs, headline, intro, imgs });
   })()`));
 
-  check('headline preserved', content.headline === 'Dos puertas de entrada al turismo médico.', content.headline);
+  check('headline preserved', content.headline === 'Descubre México desde nuevas perspectivas.', content.headline);
   check('intro preserved', /Dos plataformas hermanas/.test(content.intro));
   check('both card names preserved', content.names.join('|') === 'TRAVEL MEXICO|HOSPITALIDAD CANCÚN', content.names.join('|'));
   check('both card tags preserved', content.tags.length === 2 && /Viajes, hoteles/.test(content.tags[0]) && /Caribe Mexicano/.test(content.tags[1]));

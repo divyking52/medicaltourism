@@ -134,8 +134,27 @@ const PATCH = {
   'Osvaldo (Promotion Tres60) · Estrategia Digital y Visibilidad': 'Osvaldo Rodríguez (Promotion Tres60) · Digital Strategy & Visibility',
   'Osvaldo Rodríguez (Promotion Tres60) · Estrategia Digital y Visibilidad': 'Osvaldo Rodríguez (Promotion Tres60) · Digital Strategy & Visibility',
   'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: regístrate en línea o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: register online or contact the organising committee directly.',
-  'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: descarga los formatos oficiales de inscripción o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: register online or contact the organising committee directly.'
+  'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: descarga los formatos oficiales de inscripción o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: register online or contact the organising committee directly.',
+  'Descubre México': 'Discover Mexico',
+  'desde nuevas perspectivas.': 'from new perspectives.'
 };
+
+// Keys that are no longer used by the markup and are dropped from the
+// dictionary so it stays a faithful mirror of the site's copy.
+const REMOVE = [
+  'Dos puertas de entrada',
+  'al turismo médico.',
+  'DESCARGA FORMATO DE STANDS',
+  'DESCARGA FORMATO CONFERENCIAS',
+  'DESCARGAR FORMATO DE STANDS (DOCX)',
+  'DESCARGAR FORMATO CONFERENCIAS (DOCX)',
+  'Citas puntuales de 15 minutos',
+  'Ver perfil completo de Osvaldo',
+  'Osvaldo',
+  'Negocios de Salud Internacional',
+  'Osvaldo (Promotion Tres60) · Estrategia Digital y Visibilidad',
+  'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: descarga los formatos oficiales de inscripción o ponte en contacto directo con el comité organizador.',
+];
 
 let src = fs.readFileSync(FILE, 'utf8');
 let added = 0;
@@ -184,8 +203,20 @@ if (toAdd.length) {
   added = toAdd.length;
 }
 
+// Drop the keys whose source string no longer exists in the markup
+let removed = 0;
+for (const key of REMOVE) {
+  const re = new RegExp(`\\n\\s*'${esc(key).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}':\\s*'(?:[^'\\\\]|\\\\.)*',`, 'g');
+  const before = src;
+  src = src.replace(re, (m) => {
+    removed++;
+    return '\n';
+  });
+  if (before === src) console.log(`  (not in dictionary: ${key})`);
+}
+
 fs.writeFileSync(FILE, src, 'utf8');
-console.log(`i18n.js patched: ${added} added, ${overridden} corrected`);
+console.log(`i18n.js patched: ${added} added, ${overridden} corrected, ${removed} removed`);
 
 // Fail loudly if the result is not valid JavaScript
 new (require('vm').Script)(src, { filename: FILE });

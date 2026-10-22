@@ -31,8 +31,8 @@ const SECTION = `      <!-- ====================================================
           <div class="platforms-header" data-platforms-reveal>
             <p class="eyebrow gold-eyebrow">NUESTRAS PLATAFORMAS</p>
             <h2 class="editorial-headline text-white">
-              Dos puertas de entrada<br />
-              <em class="headline-accent gold-accent">al turismo médico.</em>
+              Descubre México<br />
+              <em class="headline-accent gold-accent">desde nuevas perspectivas.</em>
             </h2>
             <p class="platforms-banner-intro">
               Dos plataformas hermanas para vivir México de otra manera: reserva viajes y experiencias con Travel Mexico, o encuentra atención médica de primer nivel en el Caribe Mexicano con Hospitality Cancún.
