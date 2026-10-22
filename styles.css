@@ -287,7 +287,6 @@ footer:hover > .smoke-section-backdrop,
 .speaker-mini-card,
 .matchmaking-banner,
 .expo-venue-teaser-card,
-.ally-item,
 .platform-card {
   position: relative;
   overflow: hidden;
@@ -305,7 +304,6 @@ footer:hover > .smoke-section-backdrop,
 .speaker-mini-card::after,
 .matchmaking-banner::after,
 .expo-venue-teaser-card::after,
-.ally-item::after,
 .platform-card::after {
   content: '';
   position: absolute;
@@ -336,7 +334,6 @@ footer:hover > .smoke-section-backdrop,
 .speaker-mini-card:hover::after,
 .matchmaking-banner:hover::after,
 .expo-venue-teaser-card:hover::after,
-.ally-item:hover::after,
 .platform-card:hover::after {
   opacity: 0.30;
   transform: scale(1.08) translate3d(var(--card-smoke-x, 0px), var(--card-smoke-y, 0px), 0);
@@ -353,7 +350,6 @@ footer:hover > .smoke-section-backdrop,
 .speaker-mini-card > *,
 .matchmaking-banner > *,
 .expo-venue-teaser-card > *,
-.ally-item > *,
 .scene-inner {
   position: relative;
   z-index: 2;
@@ -2541,39 +2537,6 @@ footer:hover > .smoke-section-backdrop,
 
 .allies-header {
   margin-bottom: 50px;
-}
-
-.allies-logos-grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(24px, 4vw, 48px);
-  flex-wrap: wrap;
-}
-
-.ally-item {
-  background: linear-gradient(145deg, #faf7f0, #e6dfd1);
-  box-shadow: var(--neo-light-outset-sm);
-  border: var(--neo-light-rim);
-  border-radius: 20px;
-  padding: 24px 34px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ally-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--neo-light-outset-hover);
-  border-color: rgba(190, 30, 119, 0.35);
-}
-
-.ally-item img {
-  max-height: 56px;
-  width: auto;
-  object-fit: contain;
-  filter: contrast(1.05);
 }
 
 /* ============================================================
@@ -6641,22 +6604,6 @@ html.is-preloading {
 }
 
 /* Allies block inside Section 05 Contacto */
-.contacto-allies-block {
-  margin-bottom: 60px;
-  padding-bottom: 50px;
-  border-bottom: 1px solid rgba(6, 26, 43, 0.08);
-}
-
-.allies-mini-tag {
-  font-family: var(--font-chakra);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--magenta);
-  text-transform: uppercase;
-  margin-bottom: 30px;
-}
-
 /* Sede Page Specifics */
 .sede-page,
 #view-sede {

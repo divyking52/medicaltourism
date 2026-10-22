@@ -126,7 +126,15 @@ const PATCH = {
   'Acreditaciones': 'Accreditations',
   'Encuentros de negocios preestablecidos. Las citas inician inmediatamente después de la última conferencia. Un sonido especial marca el cambio de mesa para facilitar los encuentros.': 'Pre-scheduled business meetings. Meetings begin immediately after the last conference. A special sound marks the table change to make the encounters easier.',
   'Las citas inician inmediatamente después de la última conferencia. Un sonido especial marca el cambio de mesa para facilitar los encuentros.': 'Meetings begin immediately after the last conference. A special sound marks the table change to make the encounters easier.',
-  'Citas puntuales de 15 minutos': 'One-on-one 15-minute meetings'
+  'Citas puntuales de 15 minutos': 'One-on-one 15-minute meetings',
+  'Ver perfil completo de Osvaldo Rodríguez': 'View the full profile of Osvaldo Rodríguez',
+  'Ver perfil completo de Osvaldo': 'View the full profile of Osvaldo Rodríguez',
+  'Osvaldo Rodríguez': 'Osvaldo Rodríguez',
+  'Negocios de Salud Internacional': 'OET',
+  'Osvaldo (Promotion Tres60) · Estrategia Digital y Visibilidad': 'Osvaldo Rodríguez (Promotion Tres60) · Digital Strategy & Visibility',
+  'Osvaldo Rodríguez (Promotion Tres60) · Estrategia Digital y Visibilidad': 'Osvaldo Rodríguez (Promotion Tres60) · Digital Strategy & Visibility',
+  'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: regístrate en línea o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: register online or contact the organising committee directly.',
+  'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: descarga los formatos oficiales de inscripción o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: register online or contact the organising committee directly.'
 };
 
 let src = fs.readFileSync(FILE, 'utf8');

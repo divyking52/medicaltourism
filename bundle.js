@@ -254,4 +254,18 @@ try {
   console.warn('Could not run bundle_unified:', err.message);
 }
 
+// 6b. standalone.html ships the COMPLETE build so every internal link
+//     (agenda, expo, sede, galeria, facilitadores) resolves inside the
+//     single file instead of navigating away from it.
+try {
+  const unifiedOut = path.join(rootDir, 'website_standalone.html');
+  if (fs.existsSync(unifiedOut)) {
+    fs.copyFileSync(unifiedOut, standaloneHtmlPath);
+    const mb = (fs.statSync(standaloneHtmlPath).size / (1024 * 1024)).toFixed(2);
+    console.log(`✓ standalone.html rebuilt as the complete single-file build (${mb} MB)`);
+  }
+} catch (err) {
+  console.warn('Could not rebuild standalone.html:', err.message);
+}
+
 

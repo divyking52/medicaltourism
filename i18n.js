@@ -193,16 +193,16 @@
     'VER AGENDA COMPLETA': 'VIEW FULL AGENDA',
     'CEO Incentyeventos · ICAIT': 'CEO Incentyeventos · ICAIT',
     'L.T. Juan Carlos Robles · Del Procedimiento al Destino': 'L.T. Juan Carlos Robles · From Procedure to Destination',
-    'Osvaldo (Promotion Tres60) · Estrategia Digital y Visibilidad': 'Osvaldo (Promotion Tres60) · Digital Strategy & Visibility',
+    'Osvaldo (Promotion Tres60) · Estrategia Digital y Visibilidad': 'Osvaldo Rodríguez (Promotion Tres60) · Digital Strategy & Visibility',
     'Dr. Gabriel O. Parra Pizarro · Journey del Paciente': 'Dr. Gabriel O. Parra Pizarro · The Patient Journey',
     'Cofundador Lymbika Health': 'Co-founder, Lymbika Health',
     'Cofundador · Medical Tourism Consultants': 'Co-founder · Medical Tourism Consultants',
-    'Negocios de Salud Internacional': 'International Health Business',
+    'Negocios de Salud Internacional': 'OET',
     'Cross-Border Healthcare Infrastructure': 'Cross-Border Healthcare Infrastructure',
     'Turismo de Salud con Google': 'Health Tourism with Google',
     'VER PERFIL →': 'VIEW PROFILE →',
     'Ver perfil completo de L.T. Juan Carlos Robles': 'View the full profile of L.T. Juan Carlos Robles',
-    'Ver perfil completo de Osvaldo': 'View the full profile of Osvaldo',
+    'Ver perfil completo de Osvaldo': 'View the full profile of Osvaldo Rodríguez',
     'Ver perfil completo de Dr. Gabriel O. Parra': 'View the full profile of Dr. Gabriel O. Parra',
     'Ver perfil completo de Carlos Vigil': 'View the full profile of Carlos Vigil',
     'Ver perfil completo de Jack Waas': 'View the full profile of Jack Waas',
@@ -321,7 +321,7 @@
     'Deja tu solicitud con cualquier duda y te atenderemos lo antes posible. También puedes comunicarte al': 'Send us your request with any questions and we will get back to you as soon as possible. You can also contact us at',
     'Estamos listos para atenderte. Te responderemos a la brevedad con la información de acceso y detalles de participación.': 'We are ready to help. We will reply shortly with access information and participation details.',
     'Deja tus datos para recibir informes sobre stands comerciales, conferencias o agenda B2B. También puedes comunicarte al': 'Leave your details to receive reports on commercial stands, conferences or the B2B agenda. You can also contact us at',
-    'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: descarga los formatos oficiales de inscripción o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: download the official registration forms or contact the organising committee directly.',
+    'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: descarga los formatos oficiales de inscripción o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: register online or contact the organising committee directly.',
 
     /* ---------- Agenda page ---------- */
     'Agenda de Conferencias · 15° Congreso de Turismo Médico 2026': 'Conference Agenda · 15th Medical Tourism Congress 2026',
@@ -694,7 +694,11 @@
     'Inteligencia Artificial (IA)': 'Artificial Intelligence (AI)',
     'Experiencia del paciente': 'Patient Experience',
     'Acreditaciones': 'Accreditations',
-    'Encuentros de negocios preestablecidos. Las citas inician inmediatamente después de la última conferencia. Un sonido especial marca el cambio de mesa para facilitar los encuentros.': 'Pre-scheduled business meetings. Meetings begin immediately after the last conference. A special sound marks the table change to make the encounters easier.'
+    'Encuentros de negocios preestablecidos. Las citas inician inmediatamente después de la última conferencia. Un sonido especial marca el cambio de mesa para facilitar los encuentros.': 'Pre-scheduled business meetings. Meetings begin immediately after the last conference. A special sound marks the table change to make the encounters easier.',
+    'Ver perfil completo de Osvaldo Rodríguez': 'View the full profile of Osvaldo Rodríguez',
+    'Osvaldo Rodríguez': 'Osvaldo Rodríguez',
+    'Osvaldo Rodríguez (Promotion Tres60) · Estrategia Digital y Visibilidad': 'Osvaldo Rodríguez (Promotion Tres60) · Digital Strategy & Visibility',
+    'Todo lo que debes saber sobre el 15° Congreso de Turismo Médico: regístrate en línea o ponte en contacto directo con el comité organizador.': 'Everything you need to know about the 15th Medical Tourism Congress: register online or contact the organising committee directly.'
   };
 
   global.SITE_I18N = { en: EN };
