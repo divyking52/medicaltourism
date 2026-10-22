@@ -120,7 +120,13 @@ const PATCH = {
   'Software de Citas Pre-Establecidas': 'Pre-Scheduled Meeting Engine',
   'Stands 2.44 x 3 m HD': 'HD 2.44 x 3 m stands',
   'Agenda de Citas Incluida': 'Meeting agenda included',
-  'Sede: FICOTRECE': 'Venue: FICOTRECE'
+  'Sede: FICOTRECE': 'Venue: FICOTRECE',
+  'Inteligencia Artificial (IA)': 'Artificial Intelligence (AI)',
+  'Experiencia del paciente': 'Patient Experience',
+  'Acreditaciones': 'Accreditations',
+  'Encuentros de negocios preestablecidos. Las citas inician inmediatamente después de la última conferencia. Un sonido especial marca el cambio de mesa para facilitar los encuentros.': 'Pre-scheduled business meetings. Meetings begin immediately after the last conference. A special sound marks the table change to make the encounters easier.',
+  'Las citas inician inmediatamente después de la última conferencia. Un sonido especial marca el cambio de mesa para facilitar los encuentros.': 'Meetings begin immediately after the last conference. A special sound marks the table change to make the encounters easier.',
+  'Citas puntuales de 15 minutos': 'One-on-one 15-minute meetings'
 };
 
 let src = fs.readFileSync(FILE, 'utf8');
